@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+//import 'package:transparent_image/transparent_image.dart';
 
 void main() {
   runApp(const MyApp()); //point d'entrée de l'appli
@@ -82,8 +84,16 @@ class MyApp extends StatelessWidget {
           // the App.build method, and use it to set our appbar title.
           title: Text("Mes recettes"),
         ),
-        body: Column(
+        body: ListView( //Permet d'avoir une vue scrollable en cas de débordement de texte
           children: [
+              CachedNetworkImage( // pour faire un effet de fondu (une animation)
+                imageUrl: 'https://assets.afcdn.com/recipe/20160519/15342_w600.jpg',
+                placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                width: 600,
+                height: 240,
+                fit: BoxFit.cover, //permet d'afficher au mieux l'image
+              ),
             titleSection,
             buttonSection,
             descriptionSection,
